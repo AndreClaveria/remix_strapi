@@ -1,54 +1,78 @@
 import type { MetaFunction } from "@remix-run/node";
 
+import ContactForm from "../components/forms";
+
+const posts = [
+  {
+    id: 1,
+    title: "Post 1",
+    description: "Ceci est la description du premier post.",
+    date: "2025-05-20",
+    image: "/path/to/image1.jpg",
+  },
+  {
+    id: 2,
+    title: "Post 2",
+    description: "Ceci est la description du deuxième post.",
+    date: "2025-05-19",
+    image: "/path/to/image2.jpg",
+  },
+  {
+    id: 3,
+    title: "Post 3",
+    description: "Ceci est la description du troisième post.",
+    date: "2025-05-18",
+    image: "/path/to/image3.jpg",
+  },
+];
+
 export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
+  return [{ title: "Kachow" }, { name: "Cars", content: "I'm speed" }];
 };
 
 export default function Index() {
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="flex flex-col items-center gap-16">
-        <header className="flex flex-col items-center gap-9">
-          <h1 className="leading text-2xl font-bold text-gray-800 dark:text-gray-100">
-            Welcome to <span className="sr-only">Remix</span>
-          </h1>
-          <div className="h-[144px] w-[434px]">
-            <img
-              src="/logo-light.png"
-              alt="Remix"
-              className="block w-full dark:hidden"
-            />
-            <img
-              src="/logo-dark.png"
-              alt="Remix"
-              className="hidden w-full dark:block"
-            />
-          </div>
-        </header>
-        <nav className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700">
-          <p className="leading-6 text-gray-700 dark:text-gray-200">
-            What&apos;s next?
-          </p>
-          <ul>
-            {resources.map(({ href, text, icon }) => (
-              <li key={href}>
-                <a
-                  className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {icon}
-                  {text}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8">
+      <div className="sticky top-0 z-50 w-full bg-gray-100 bg-opacity-90 backdrop-blur-sm flex flex-col items-center pt-4 pb-2">
+        <div className="absolute top-4 left-4 bg-green-200 text-green-800 px-4 py-2 rounded shadow">
+          Connected as JohnDoe
+        </div>
+        <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-teal-400 to-green-400 drop-shadow-lg mb-2">
+          Kachow
+        </h1>
+        <div className="w-2/3 h-[2px] bg-gradient-to-r from-blue-500 via-teal-400 to-green-400 rounded-full opacity-70" />
       </div>
+
+      <section className="w-full max-w-3xl space-y-8">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+          Nos derniers posts
+        </h2>
+        <div className="space-y-6">
+          {posts.map((post) => (
+            <div
+              key={post.id}
+              className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg p-6"
+            >
+              <img
+                src={post.image}
+                alt={post.title}
+                className="w-full md:w-1/3 h-auto object-cover rounded-md mb-4 md:mb-0"
+              />
+              <div className="md:ml-6 flex flex-col justify-between">
+                <h3 className="text-xl font-semibold text-gray-800">
+                  {post.title}
+                </h3>
+                <p className="text-gray-600 mb-4">{post.description}</p>
+                <span className="text-sm text-gray-500">
+                  Publié le {new Date(post.date).toLocaleDateString()}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <ContactForm />
     </div>
   );
 }
