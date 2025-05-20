@@ -1,19 +1,51 @@
+// server/api/auth.ts
 import { api } from "./index";
 
-export async function login(identifier: string, password: string) {
-  const res = await api.post("/auth/local", { identifier, password });
-  return res.data;
+export interface RegisterPayload {
+  username: string;
+  email: string;
+  password: string;
+}
+
+export interface RegisterResponse {
+  jwt: string;
+  user: {
+    id: number;
+    username: string;
+    email: string;
+    confirmed: boolean;
+    blocked: boolean;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+export interface LoginPayload {
+  identifier: string; // username ou email
+  password: string;
+}
+
+export interface LoginResponse {
+  jwt: string;
+  user: {
+    id: number;
+    username: string;
+    email: string;
+    confirmed: boolean;
+    blocked: boolean;
+    createdAt: string;
+    updatedAt: string;
+  };
 }
 
 export async function register(
-  username: string,
-  email: string,
-  password: string
-) {
-  const res = await api.post("/auth/local/register", {
-    username,
-    email,
-    password,
-  });
+  payload: RegisterPayload
+): Promise<RegisterResponse> {
+  const res = await api.post<RegisterResponse>("/auth/local/register", payload);
+  return res.data;
+}
+
+export async function login(payload: LoginPayload): Promise<LoginResponse> {
+  const res = await api.post<LoginResponse>("/auth/local", payload);
   return res.data;
 }
