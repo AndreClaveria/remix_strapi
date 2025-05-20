@@ -15,7 +15,7 @@ export const action: ActionFunction = async ({ request }) => {
 
     if (response.jwt) {
       // Renvoie le token pour stockage client
-      return json({ success: true, token: response.jwt });
+      return { success: true, token: response.jwt };
     }
 
     return json(
