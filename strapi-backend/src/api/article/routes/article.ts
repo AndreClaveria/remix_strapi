@@ -15,5 +15,14 @@ export default {
         auth: false,
       },
     },
+    {
+      method: "POST",
+      path: "/articles/create",
+      handler: "article.create",
+      config: {
+        policies: [],
+        auth: false,
+      },
+    },
   ],
 };
