@@ -1,30 +1,34 @@
 import type { MetaFunction } from "@remix-run/node";
 
 import ContactForm from "../components/forms";
+import { getArticles } from "~/services/api/article";
+import Article from "~/services/models/article";
 
-const posts = [
-  {
-    id: 1,
-    title: "Post 1",
-    description: "Ceci est la description du premier post.",
-    date: "2025-05-20",
-    image: "/path/to/image1.jpg",
-  },
-  {
-    id: 2,
-    title: "Post 2",
-    description: "Ceci est la description du deuxième post.",
-    date: "2025-05-19",
-    image: "/path/to/image2.jpg",
-  },
-  {
-    id: 3,
-    title: "Post 3",
-    description: "Ceci est la description du troisième post.",
-    date: "2025-05-18",
-    image: "/path/to/image3.jpg",
-  },
-];
+// const posts = [
+//   {
+//     id: 1,
+//     title: "Post 1",
+//     description: "Ceci est la description du premier post.",
+//     date: "2025-05-20",
+//     image: "/path/to/image1.jpg",
+//   },
+//   {
+//     id: 2,
+//     title: "Post 2",
+//     description: "Ceci est la description du deuxième post.",
+//     date: "2025-05-19",
+//     image: "/path/to/image2.jpg",
+//   },
+//   {
+//     id: 3,
+//     title: "Post 3",
+//     description: "Ceci est la description du troisième post.",
+//     date: "2025-05-18",
+//     image: "/path/to/image3.jpg",
+//   },
+// ];
+
+const posts = await getArticles();
 
 export const meta: MetaFunction = () => {
   return [{ title: "Kachow" }, { name: "Cars", content: "I'm speed" }];
@@ -48,21 +52,21 @@ export default function Index() {
           Nos derniers posts
         </h2>
         <div className="space-y-6">
-          {posts.map((post) => (
+          {posts.map((post: Article) => (
             <div
               key={post.id}
               className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg p-6"
             >
               <img
-                src={post.image}
-                alt={post.title}
+                src={"http://localhost:1337" + post.image.url}
+                alt={post.Title}
                 className="w-full md:w-1/3 h-auto object-cover rounded-md mb-4 md:mb-0"
               />
               <div className="md:ml-6 flex flex-col justify-between">
                 <h3 className="text-xl font-semibold text-gray-800">
-                  {post.title}
+                  {post.Title}
                 </h3>
-                <p className="text-gray-600 mb-4">{post.description}</p>
+                <p className="text-gray-600 mb-4">{post.Description}</p>
                 <span className="text-sm text-gray-500">
                   Publié le {new Date(post.date).toLocaleDateString()}
                 </span>

@@ -2,6 +2,18 @@
  * article router
  */
 
-import { factories } from '@strapi/strapi';
+import { factories } from "@strapi/strapi";
 
-export default factories.createCoreRouter('api::article.article');
+export default {
+  routes: [
+    {
+      method: "GET",
+      path: "/articles/all",
+      handler: "article.findAll",
+      config: {
+        policies: [],
+        auth: false,
+      },
+    },
+  ],
+};
