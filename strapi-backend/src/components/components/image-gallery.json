@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_components_image_galleries",
+  "info": {
+    "displayName": "Image Gallery",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "layout": {
+      "type": "enumeration",
+      "enum": ["grid", "carousel", "masonry"],
+      "default": "grid"
+    }
+  }
+}
